@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# 虚拟环境
+.venv/
+venv/
+env/
+
+# 编辑器 / IDE
+.idea/
+.vscode/
+*.swp
+.DS_Store
+
+# 本地配置与备份
+*_config.json
+*.bak
+*.bak_*
+.env
+
+# 运行产物
+*.wav
+*.log

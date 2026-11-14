@@ -1,0 +1,45 @@
+name: astrbot_plugin_deepseek_audio
+display_name: DeepSeek 语音
+short_desc: 接入 DeepSeek 官方 TTS / ASR，补齐 AstrBot 的语音合成与语音识别
+desc: >
+  为 AstrBot 新增两个 Provider 类型：deepseek_tts_api（语音合成）与 deepseek_asr_api（语音识别），
+  直接调用 DeepSeek 官方 POST /v1/tools/tts 与 POST /v1/tools/asr。
+
+  内置的 openai_tts_api / openai_whisper_api 走的是 /audio/* 标准路径，与 DeepSeek 的 /tools/*
+  接口不匹配，本插件因此单独适配；同时重写了 STT 自检逻辑，不再依赖不存在的
+  samples/stt_health_check.wav。
+
+  参数不走 Provider 表单（AstrBot 核心只会给已知类型渲染表单字段），统一放在
+  「插件管理 → DeepSeek 语音 → 配置」，改完即生效、无需重启。
+
+  另提供短指令 /tts、/asr、/voice（中文别名 /语音、/识音、/音色）用于不接自动语音链路时的快速验证。
+  零第三方依赖，仅使用 AstrBot 自带的 httpx。
+help: |
+  【指令】带参数的中文指令必须留空格：/语音 你好 ✅ ／ /语音你好 ❌
+  /tts <文本>        合成语音并发送（别名 /语音、/dstts）
+  /asr               先发或引用一条语音，再发送此指令转文字（别名 /识音、/听写）
+  /voice             查看当前配置：音色 / Key / Base / 超时 / 代理（别名 /音色）
+  /voice stella|tide 切换音色：stella=女声（默认）、tide=男声
+  【配置】插件管理 → DeepSeek 语音 → 配置 → 填写 api_key（sk- 开头，TTS/ASR 共用）
+  【接入自动语音】服务提供商 → 新增 → 选 DeepSeek TTS API / DeepSeek ASR API（表单为空属正常，直接保存）
+                  → 语音设置里把 TTS / STT 指向它们并开启开关
+  【限制】TTS 仅 stella/tide 两种音色、不支持调速；ASR 仅 16bit PCM WAV 或 Ogg Opus、≤120 秒、≤8MiB
+version: 1.0.0
+author: Canoe16type
+repo: https://github.com/Canoe16type/astrbot_plugin_deepseek_audio
+astrbot_version: ">=4.24.0,<5"
+support_platforms:
+  - aiocqhttp
+  - qq_official
+  - qq_official_webhook
+  - telegram
+  - lark
+  - dingtalk
+  - wecom
+tags:
+  - TTS
+  - ASR
+  - 语音合成
+  - 语音识别
+  - DeepSeek
+  - Provider

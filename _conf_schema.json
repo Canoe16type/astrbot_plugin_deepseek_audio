@@ -1,0 +1,32 @@
+{
+  "api_key": {
+    "type": "string",
+    "description": "DeepSeek API Key",
+    "hint": "在 platform.deepseek.com 申请的 sk- 开头密钥；TTS/ASR 共用这一个 Key",
+    "default": ""
+  },
+  "api_base": {
+    "type": "string",
+    "description": "API Base URL",
+    "hint": "一般不用改。带不带 /v1 都行，插件会自动归一化",
+    "default": "https://api.deepseek.com"
+  },
+  "voice": {
+    "type": "string",
+    "description": "TTS 音色",
+    "hint": "填 stella（女声，默认）或 tide（男声）。填其他值会被当作 stella",
+    "default": "stella"
+  },
+  "timeout": {
+    "type": "int",
+    "description": "请求超时（秒）",
+    "hint": "合成/识别较长音频时可适当调大",
+    "default": 120
+  },
+  "proxy": {
+    "type": "string",
+    "description": "代理地址（可选）",
+    "hint": "如 http://127.0.0.1:7890；不需要就留空",
+    "default": ""
+  }
+}
